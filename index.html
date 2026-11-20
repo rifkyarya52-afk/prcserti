@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Patrol Rifle Certification — Derrick Lwakabbessy</title>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --navy: #0b2545;
+      --navy-dark: #06172c;
+      --gold: #c59b27;
+      --slate: #4a5568;
+      --ink: #1a202c;
+      --bg: #e2e8f0;
+      --paper: #ffffff;
+      --panel: #f8fafc;
+      --border: #cbd5e1;
+      --green: #15803d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      padding: 28px 16px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .toolbar {
+      width: 100%;
+      max-width: 920px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--navy-dark);
+      color: #ffffff;
+      padding: 14px 20px;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(11, 37, 69, 0.18);
+    }
+
+    .toolbar-info {
+      font-size: 13px;
+      line-height: 1.4;
+      color: #cbd5e1;
+    }
+
+    .toolbar-info strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .btn-download {
+      background: var(--gold);
+      color: var(--navy-dark);
+      border: none;
+      border-radius: 6px;
+      padding: 10px 18px;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      transition: background 0.18s ease, transform 0.12s ease;
+    }
+
+    .btn-download:hover {
+      background: #d8ad34;
+    }
+
+    .btn-download:active {
+      transform: scale(0.98);
+    }
+
+    .btn-download:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .cert-wrapper {
+      width: 100%;
+      max-width: 920px;
+      overflow-x: auto;
+      border-radius: 8px;
+      box-shadow: 0 14px 36px rgba(15, 23, 42, 0.16);
+    }
+
+    #certificate {
+      width: 920px;
+      min-height: 620px;
+      background: var(--paper);
+      padding: 36px 42px;
+      position: relative;
+      border: 2px solid var(--navy);
+    }
+
+    .inner-frame {
+      border: 1.5px solid var(--gold);
+      padding: 28px 34px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .header {
+      text-align: center;
+      border-bottom: 2px solid var(--navy);
+      padding-bottom: 16px;
+    }
+
+    .dept-title {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      color: var(--navy);
+      text-transform: uppercase;
+    }
+
+    .sub-dept {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+      color: var(--slate);
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+
+    .doc-label {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 4px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--navy);
+      background: #f1f5f9;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .body-section {
+      text-align: center;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 22px 26px;
+    }
+
+    .cert-heading {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: var(--navy);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .lead-text {
+      font-size: 13px;
+      color: var(--slate);
+      margin-bottom: 10px;
+    }
+
+    .officer-name {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--navy-dark);
+      letter-spacing: 0.6px;
+      padding: 6px 18px;
+      border-bottom: 2px solid var(--gold);
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .officer-meta {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 14px;
+    }
+
+    .statement {
+      font-size: 13px;
+      line-height: 1.65;
+      color: #2d3748;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      background: var(--paper);
+    }
+
+    .meta-cell {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 12.5px;
+    }
+
+    .meta-cell:nth-child(2n) {
+      border-right: none;
+    }
+
+    .meta-cell:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+
+    .meta-key {
+      font-weight: 700;
+      color: var(--slate);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    .meta-val {
+      font-weight: 700;
+      color: var(--ink);
+      text-align: right;
+    }
+
+    .status-qualified {
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .footer-endorsement {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .endorsement-note {
+      max-width: 470px;
+      font-size: 11.5px;
+      line-height: 1.55;
+      color: var(--slate);
+    }
+
+    .stamp-badge {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      color: var(--green);
+      border: 1.5px solid var(--green);
+      border-radius: 4px;
+      background: #f0fdf4;
+    }
+
+    .sig-box {
+      text-align: center;
+      min-width: 240px;
+    }
+
+    .sig-line {
+      border-bottom: 1.5px solid var(--ink);
+      padding-bottom: 4px;
+      margin-bottom: 5px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--navy-dark);
+    }
+
+    .sig-role {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--slate);
+    }
+
+    .bottom-caption {
+      text-align: center;
+      font-size: 10px;
+      color: #94a3b8;
+      letter-spacing: 0.5px;
+    }
+
+    .status-msg {
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="toolbar-info">
+      <div><strong>LSPD Patrol Rifle Certification Portal</strong> — Read-Only Official Record</div>
+      <div class="status-msg" id="statusMsg">Certificate ID: PRC-2009-261 • Ready to download</div>
+    </div>
+    <button class="btn-download" id="downloadBtn" type="button">Download Certificate (PNG)</button>
+  </div>
+
+  <div class="cert-wrapper">
+    <div id="certificate">
+      <div class="inner-frame">
+        <div>
+          <div class="header">
+            <div class="dept-title">Los Santos Police Department</div>
+            <div class="sub-dept">Metropolitan Division &bull; Firearms &amp; Tactics Oversight</div>
+            <div class="doc-label">Departmental Certification of Qualification</div>
+          </div>
+
+          <div class="body-section" style="margin-top: 18px;">
+            <div class="cert-heading">Certificate of Patrol Rifle Competency</div>
+            <div class="lead-text">This official credential certifies and attests that</div>
+            <div class="officer-name" id="lockedName">Derrick Lwakabbessy</div>
+            <div class="officer-meta">
+              Badge Number: <span id="lockedBadge">#41105</span> &nbsp;|&nbsp;
+              Rank &amp; Division: <span id="lockedRankDiv">Police Officer III, GIT</span>
+            </div>
+            <p class="statement">
+              Has successfully completed all required tactical training modules, firearms safety evaluations, and practical field performance standards under the supervision of Firearms &amp; Tactics Oversight. The bearer is authorized to carry and deploy departmental patrol rifles on duty in accordance with Los Santos Police Department standard operating procedures.
+            </p>
+          </div>
+        </div>
+
+        <div class="meta-grid">
+          <div class="meta-cell">
+            <span class="meta-key">Certificate ID</span>
+            <span class="meta-val" id="lockedCertId">PRC-2009-261</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-key">Issuance Date</span>
+            <span class="meta-val" id="lockedDate">20 November 2026</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-key">Certifying Supervisor</span>
+            <span class="meta-val" id="lockedSupervisor">Sergeant II Svetlana Romanov</span>
+          </div>
+          <div class="meta-cell">
+            <span class="meta-key">Qualification Status</span>
+            <span class="meta-val status-qualified">ACTIVE / QUALIFIED</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-endorsement">
+            <div class="endorsement-note">
+              Issued electronically under departmental firearms oversight authority. Alteration of document details or unauthorized reproduction invalidates this certification.
+              <div><span class="stamp-badge">[ VERIFIED PRC CREDENTIAL &bull; LSPD ]</span></div>
+            </div>
+            <div class="sig-box">
+              <div class="sig-line">Svetlana Romanov</div>
+              <div class="sig-role">Sergeant II &bull; Certifying Supervisor</div>
+            </div>
+          </div>
+          <div class="bottom-caption" style="margin-top: 12px;">
+            LOS SANTOS POLICE DEPARTMENT &mdash; FIREARMS &amp; TACTICS OVERSIGHT RECORD
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const CERTIFICATE_DATA = Object.freeze({
+      officerName: "Derrick Lwakabbessy",
+      badgeNumber: "#41105",
+      rankAndDivision: "Police Officer III, GIT",
+      certificateId: "PRC-2009-261",
+      issueDate: "20 November 2026",
+      supervisor: "Sergeant II Svetlana Romanov"
+    });
+
+    document.getElementById("lockedName").textContent = CERTIFICATE_DATA.officerName;
+    document.getElementById("lockedBadge").textContent = CERTIFICATE_DATA.badgeNumber;
+    document.getElementById("lockedRankDiv").textContent = CERTIFICATE_DATA.rankAndDivision;
+    document.getElementById("lockedCertId").textContent = CERTIFICATE_DATA.certificateId;
+    document.getElementById("lockedDate").textContent = CERTIFICATE_DATA.issueDate;
+    document.getElementById("lockedSupervisor").textContent = CERTIFICATE_DATA.supervisor;
+
+    const downloadBtn = document.getElementById("downloadBtn");
+    const statusMsg = document.getElementById("statusMsg");
+
+    downloadBtn.addEventListener("click", async () => {
+      downloadBtn.disabled = true;
+      statusMsg.textContent = "Generating high-resolution PNG certificate...";
+
+      try {
+        const certElement = document.getElementById("certificate");
+        const canvas = await html2canvas(certElement, {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: "#ffffff"
+        });
+
+        const link = document.createElement("a");
+        const safeName = CERTIFICATE_DATA.officerName.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        link.download = `PRC-Certificate-${safeName}-${CERTIFICATE_DATA.certificateId}.png`;
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+
+        statusMsg.textContent = `Downloaded: ${link.download}`;
+      } catch (err) {
+        statusMsg.textContent = "Failed to export image. Please try again.";
+      } finally {
+        downloadBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
